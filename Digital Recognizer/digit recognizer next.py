@@ -23,18 +23,7 @@ def recognize (train_file,test_file):
     cv = cross_validation.KFold(len(train), n_folds=5, indices=True)
 
     scores = []
-    #results = []
-    #for traincv, testcv in cv:
-       # trainfit = train[testcv[0]:testcv[-1]+1]
-       # print (len(trainfit))
-       # traintest = train [:]
-       # print (len(traintest))
-       # del traintest[testcv[0]:testcv[-1]+1]
-       # labelfit = label[testcv[0]:testcv[-1]+1]
-       # labeltest = label[:]
-       # del labeltest[testcv[0]:testcv[-1]+1]
-       # probas = temp.fit(trainfit, labelfit).predict_proba(traintest)
-       # results.append( logloss.llfun(labeltest, [x[1] for x in probas]) )
+    
     for train_indices, test_indices in cv:
         print ('Train: %s | test: %s' % (len(train_indices),len(test_indices)))
         trainfit = train[train_indices[0]:train_indices[-1]+1]
@@ -44,8 +33,6 @@ def recognize (train_file,test_file):
         scores.append(temp.fit(trainfit, labelfit).score(traintest, labeltest))
 
     print ("Accuracy: " + str(np.array(scores).mean()))
-    print ("Scores" + scores)
-    #print ("Results: " + str( np.array(results).mean() ))
 
 if __name__ == "__main__":
     recognize ("train.csv","test.csv")
